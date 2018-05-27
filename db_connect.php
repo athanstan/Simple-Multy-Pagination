@@ -1,5 +1,7 @@
 <?php 
-	/*Establish Connection with the cms Database*/
+	/*Establish Connection with the Database*/
+
+
 
 	$db['db_host'] = "localhost";
 	$db['db_user'] = "root";
@@ -16,9 +18,6 @@
 	if (!$connection) {
 		echo "<h1>Something Wrong with the connection";
 	}
-	//if in need of testing
-	// else{
-	// 	echo "<h1 style='color:white;'>Couldn't Establish connection</h1>";
-	// }
+	
 
  ?>
