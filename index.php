@@ -124,18 +124,34 @@
 <body>
     <div class="container">
 
-        <h2><?php echo $textline1; ?></h2>
+        <h2 class='mt-5' ><?php echo $textline1; ?></h2>
         <p><?php echo $textline2; ?></p>
-        <?php
+        <table class="table table-striped table-dark table-hover">
+            <thead>
+                <tr>
+                <th scope="col">#post-id</th>
+                <th scope="col">post-title</th>
+                <th scope="col">post-date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php
         //get results from database
         while ($row = mysqli_fetch_assoc($finalQuery)) {
                 $post_id = $row['post_id'];
                 $post_title = $row['post_title'];
                 $post_date = $row['post_date'];
         ?>
+                <tr>
+                    <th scope="row"><?php echo $post_id; ?></th>
+                    <td><?php echo $post_title; ?></td>
+                    <td><?php echo $post_date; ?></td>
+                </tr>
+                <?php } //End the Loop Generating Table Rows?> 
+            </tbody>
         
-        <p><?php echo $post_id.":&nbsp".$post_title."&nbsp".$post_date; ?></p>
-        <?php } ?>
+        
+        </table>
         <div id="pagination_controls">
 
         <nav aria-label="Page navigation example">
