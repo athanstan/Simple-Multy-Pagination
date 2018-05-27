@@ -76,21 +76,21 @@
         */
             if ($pagenum > 1) {
                 $previous = $pagenum - 1;
-                $paginationCtrls .= '<li class="page-item"><a class="page-link" href="'.$_SERVER['PHP_SELF'].'?page='.$previous.'">Previous</a></li> &nbsp; &nbsp; ';
+                $paginationCtrls .= '<li class="page-item"><a class="page-link" id="previous" href="'.$_SERVER['PHP_SELF'].'?page='.$previous.'">Previous</a></li> &nbsp; ';
                 //Render Clickable number links that should appear on the left of the target page
                 for ($i=$pagenum-3; $i < $pagenum; $i++) { 
                     
                     if($i >= 1){
-                        $paginationCtrls .= '<li class="page-item"><a class="page-link number-page-link" href="'.$_SERVER['PHP_SELF'].'?page='.$i.'">'.$i.'</a></li> &nbsp;';
+                        $paginationCtrls .= '<li class="page-item"><a class="page-link number-page-link" href="'.$_SERVER['PHP_SELF'].'?page='.$i.'">'.$i.'</a></li>';
                     }
                 }
             }
             //Render the target page number but without it being a link
-            $paginationCtrls .= '<li class="page-item"><span class="page-link number-page-link active-page">'.$pagenum.'</span></li> &nbsp; ';
+            $paginationCtrls .= '<li class="page-item"><span class="page-link number-page-link active-page">'.$pagenum.'</span></li> ';
 
             //Render Clickable number links that should appear on the right of the target page
             for ($i=$pagenum+1; $i<=$last; $i++) { 
-                $paginationCtrls .= '<li class="page-item"><a class="page-link number-page-link" href="'.$_SERVER['PHP_SELF'].'?page='.$i.'">'.$i.'</a></li> &nbsp; ';
+                $paginationCtrls .= '<li class="page-item"><a class="page-link number-page-link" href="'.$_SERVER['PHP_SELF'].'?page='.$i.'">'.$i.'</a></li> ';
                 if ($i > $pagenum+2) {
                     break; //Stop at the 4th loop. in order to have a really nice looking pagination
                 }
@@ -99,7 +99,7 @@
             //Which is being generated only if we are not at the last pagelink, obviously. 
             if ($pagenum != $last) {
                 $next = $pagenum + 1;
-                $paginationCtrls .= ' &nbsp; <li class="page-item"><a class="page-link" href="'.$_SERVER['PHP_SELF'].'?page='.$next.'">Next</a></li> ';
+                $paginationCtrls .= ' &nbsp; <li class="page-item"><a class="page-link" id="next" href="'.$_SERVER['PHP_SELF'].'?page='.$next.'">Next</a></li> ';
             }
         }
 
@@ -167,5 +167,37 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+<script>
+    
+
+//Don't know if it's the correct way! But it does the job Pretty beautifly.
+//  Note: Instead of the < and > symbols you can easily include some font awesome arrow icons. :) 
+var width = $(window).width();
+    if (width<=414) 
+    {
+        $("#next").html(">");
+        $("#previous").html("<");
+    }
+    else{
+        $("#next").html("Next");
+        $("#previous").html("Previous");
+    }
+$(window).on('resize', function(){
+    if($(this).width() != width){
+        width = $(this).width();
+        if (width<=414) {
+            $("#next").html(">");
+            $("#previous").html("<");
+        }
+        else{
+            $("#next").html("Next");
+            $("#previous").html("Previous");
+        }
+    }
+});
+
+
+
+</script>
 </body>
 </html>

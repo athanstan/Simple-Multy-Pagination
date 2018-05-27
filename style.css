@@ -6,6 +6,10 @@ body{
     border-radius: .25rem;
 }
 
+.page-item{
+    padding: 0 2px 0 2px;
+}
+
 .active-page{
     color: #fff !important;
     background-color: #007bff !important;
