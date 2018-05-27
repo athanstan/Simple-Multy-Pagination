@@ -78,9 +78,9 @@
                 $previous = $pagenum - 1;
                 $paginationCtrls .= '<li class="page-item"><a class="page-link" href="'.$_SERVER['PHP_SELF'].'?page='.$previous.'">Previous</a></li> &nbsp; &nbsp; ';
                 //Render Clickable number links that should appear on the left of the target page
-                for ($i=$pagenum-4; $i < $pagenum; $i++) { 
+                for ($i=$pagenum-3; $i < $pagenum; $i++) { 
                     
-                    if($i > 1){
+                    if($i >= 1){
                         $paginationCtrls .= '<li class="page-item"><a class="page-link number-page-link" href="'.$_SERVER['PHP_SELF'].'?page='.$i.'">'.$i.'</a></li> &nbsp;';
                     }
                 }
@@ -89,9 +89,9 @@
             $paginationCtrls .= '<li class="page-item"><span class="page-link number-page-link active-page">'.$pagenum.'</span></li> &nbsp; ';
 
             //Render Clickable number links that should appear on the right of the target page
-            for ($i=$pagenum+1; $i<$last; $i++) { 
+            for ($i=$pagenum+1; $i<=$last; $i++) { 
                 $paginationCtrls .= '<li class="page-item"><a class="page-link number-page-link" href="'.$_SERVER['PHP_SELF'].'?page='.$i.'">'.$i.'</a></li> &nbsp; ';
-                if ($i > $pagenum+4) {
+                if ($i > $pagenum+2) {
                     break; //Stop at the 4th loop. in order to have a really nice looking pagination
                 }
             }
@@ -152,7 +152,7 @@
         
         
         </table>
-        <div id="pagination_controls">
+        <div id="pagination_controls" class="mx-auto">
 
         <nav aria-label="Page navigation example">
             <ul class="pagination">
