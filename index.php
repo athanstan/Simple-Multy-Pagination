@@ -12,7 +12,7 @@
         */
         $row = mysqli_fetch_row($getRowCountQuery);
 
-        echo "<h1>The rows in the posts table are : ".$row[0]."</h1>";
+        //echo "<h1>The rows in the posts table are : ".$row[0]."</h1>";
         $rowCount = $row[0];
 
         //define the number of posts you want to be displayed in a single page
@@ -76,20 +76,21 @@
         */
             if ($pagenum > 1) {
                 $previous = $pagenum - 1;
-                $paginationCtrls .= '<a href="'.$_SERVER['PHP_SELF'].'?page='.$previous.'">Previous</a> &nbsp; &nbsp; ';
+                $paginationCtrls .= '<li class="page-item"><a class="page-link" href="'.$_SERVER['PHP_SELF'].'?page='.$previous.'">Previous</a></li> &nbsp; &nbsp; ';
                 //Render Clickable number links that should appear on the left of the target page
                 for ($i=$pagenum-4; $i < $pagenum; $i++) { 
                     
                     if($i > 1){
-                        $paginationCtrls .= '<a href="'.$_SERVER['PHP_SELF'].'?page='.$i.'">'.$i.'</a> &nbsp;';
+                        $paginationCtrls .= '<li class="page-item"><a class="page-link number-page-link" href="'.$_SERVER['PHP_SELF'].'?page='.$i.'">'.$i.'</a></li> &nbsp;';
                     }
                 }
             }
             //Render the target page number but without it being a link
-            $paginationCtrls .= ''.$pagenum.' &nbsp; ';
+            $paginationCtrls .= '<li class="page-item"><span class="page-link number-page-link active-page">'.$pagenum.'</span></li> &nbsp; ';
+
             //Render Clickable number links that should appear on the right of the target page
             for ($i=$pagenum+1; $i<$last; $i++) { 
-                $paginationCtrls .= '<a href="'.$_SERVER['PHP_SELF'].'?page='.$i.'">'.$i.'</a> &nbsp; ';
+                $paginationCtrls .= '<li class="page-item"><a class="page-link number-page-link" href="'.$_SERVER['PHP_SELF'].'?page='.$i.'">'.$i.'</a></li> &nbsp; ';
                 if ($i > $pagenum+4) {
                     break; //Stop at the 4th loop. in order to have a really nice looking pagination
                 }
@@ -98,13 +99,13 @@
             //Which is being generated only if we are not at the last pagelink, obviously. 
             if ($pagenum != $last) {
                 $next = $pagenum + 1;
-                $paginationCtrls .= ' &nbsp; &nbsp; <a href="'.$_SERVER['PHP_SELF'].'?page='.$next.'">Next</a> ';
+                $paginationCtrls .= ' &nbsp; <li class="page-item"><a class="page-link" href="'.$_SERVER['PHP_SELF'].'?page='.$next.'">Next</a></li> ';
             }
         }
 
     }
     else{
-        echo "You are not currently connectec to a Database";
+        echo "You are not currently connected to a Database"; // Just for error handling
     }
 ?>
 
@@ -114,25 +115,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Google Pagination</title>
-
-    <style type="text/css">
-
-    </style>
+    <!-- Custom Css -->
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    
 </head>
 <body>
-    <div>
-    <h2><?php echo $textline1; ?> Paged</h2>
-    <p><?php echo $textline2; ?></p>
-    <?php
-    while ($row = mysqli_fetch_assoc($finalQuery)) {
-            $post_id = $row['post_id'];
-            $post_title = $row['post_title'];
-            $post_date = $row['post_date'];
-    ?>
-     
-    <p><?php echo $post_id.":&nbsp".$post_title."&nbsp".$post_date; ?></p>
-    <?php } ?>
-    <div id="pagination_controls"><?php echo $paginationCtrls; ?></div>
+    <div class="container">
+
+        <h2><?php echo $textline1; ?></h2>
+        <p><?php echo $textline2; ?></p>
+        <?php
+        //get results from database
+        while ($row = mysqli_fetch_assoc($finalQuery)) {
+                $post_id = $row['post_id'];
+                $post_title = $row['post_title'];
+                $post_date = $row['post_date'];
+        ?>
+        
+        <p><?php echo $post_id.":&nbsp".$post_title."&nbsp".$post_date; ?></p>
+        <?php } ?>
+        <div id="pagination_controls">
+
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <?php echo $paginationCtrls; ?>
+            </ul>
+        </nav>
+        </div>
     </div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 </body>
 </html>

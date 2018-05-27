@@ -1,7 +1,11 @@
 <?php 
 	/*Establish Connection with the Database*/
 
-
+	/* 
+		In order to get this Working you just have to change the Names for the host, user, pass and name 
+		and replace them with your credentials and the connection will worl
+		just fine
+	*/
 
 	$db['db_host'] = "localhost";
 	$db['db_user'] = "root";
